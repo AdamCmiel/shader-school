@@ -4,9 +4,12 @@ uniform float theta;
 
 attribute vec2 position;
 
+mat2 rotationMatrix() {
+  return mat2(cos(theta), sin(theta),
+             -sin(theta), cos(theta));
+}
+
 void main() {
-
-  //TODO: rotate position by theta radians about the origin
-
-  gl_Position = vec4(position, 0, 1.0);
+  vec2 returnPosition = rotationMatrix() * position;
+  gl_Position = vec4(returnPosition, 0.0, 1.0);
 }
