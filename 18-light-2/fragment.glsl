@@ -1,9 +1,9 @@
 precision highp float;
 
-uniform mat4 model, view, projection;
-uniform mat4 inverseModel, inverseView, inverseProjection;
 uniform vec3 ambient, diffuse, lightDirection;
+varying vec3 fragNormal;
 
 void main() {
-  gl_FragColor = vec4(1,1,1,1);
+  float brightness = dot(fragNormal, lightDirection);
+  gl_FragColor = vec4(ambient + diffuse * max(brightness, 0.0), 1);
 }
