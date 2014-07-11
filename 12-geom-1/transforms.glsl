@@ -8,5 +8,9 @@ void main() {
 
   //TODO: Apply the model-view-projection matrix to `position`
 
-  gl_Position = vec4(position, 1);
+  mat4 allMatricies = projection * view * model;
+  vec4 inputPosition = vec4(position, 1.0);
+  vec4 outputPosition = allMatricies * inputPosition;
+
+  gl_Position = outputPosition;
 }
