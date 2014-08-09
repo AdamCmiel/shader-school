@@ -7,17 +7,15 @@ varying vec3 fragNormal, fragPosition;
 float phong(vec3 lightDirection,
             vec3 surfaceNormal,
             vec3 eyeDirection,
-            float shininess)
-{
+            float shininess) {
   vec3 lightReflected = reflect(lightDirection, surfaceNormal);
   float lightMag = max(dot(lightReflected, eyeDirection), 0.0);
   return pow(lightMag, shininess);
 }
 
 float lambert(vec3 lightDirection,
-              vec3 surfaceNormal)
-{
-  return dot(surfaceNormal, lightDirection);
+              vec3 surfaceNormal) {
+  return dot(lightDirection, surfaceNormal);
 }
 
 void main() {
@@ -28,10 +26,9 @@ void main() {
   float phongWeight = phong(light,
                             normal,
                             eyeDirection,
-                            shininess)
+                            shininess);
 
-  float lambertWeight = lambert(light,
-                                normal);
+  float lambertWeight = lambert(light, normal);
 
   vec3 lightColor = ambient +
                     diffuse * lambertWeight +
