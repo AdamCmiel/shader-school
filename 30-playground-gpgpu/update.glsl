@@ -10,7 +10,7 @@ void main() {
   vec3 paintColor = vec3(0,0,0);
 
   //Paint colors depending on mouse state
-  float w = exp2(-0.05 * distance(gl_FragCoord.xy, mousePosition));
+  float w = exp2(-0.1 * distance(gl_FragCoord.xy, mousePosition));
   if(mouseDown.x) {
     paintColor.r = w;
   }

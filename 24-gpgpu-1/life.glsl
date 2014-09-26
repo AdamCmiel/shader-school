@@ -3,16 +3,15 @@ precision highp float;
 uniform sampler2D prevState;
 uniform vec2 stateSize;
 
-float state(vec2 coord) {
-  return texture2D(prevState, fract(coord / stateSize)).r;
-}
-
 void main() {
-  vec2 coord = gl_FragCoord.xy;
+  vec2 vUv = gl_FragCoord.xy / stateSize;
+  float s = texture2D(prevState, vUv).r;
+  float count = 0.0;
 
+  for (int x = -1; x <= 1; x++)
+  for (int y = -1; y <= 1; y++)
+    count += texture2D(prevState, fract(vUv + vec2(x, y) / stateSize)).r;
 
-  //TODO: Compute the next state for the cell at coord
-  float s = state(coord);
-
-  gl_FragColor = vec4(s,s,s, 1.0);
+  gl_FragColor.rgb = vec3(count > 3.0+s || count < 3.0 ? 0.0 : 1.0);
+  gl_FragColor.a = 1.0;
 }

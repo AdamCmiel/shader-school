@@ -4,6 +4,7 @@ struct PointLight {
   vec3 specular;
   vec3 position;
   float shininess;
+  vec4 direction
 };
 
 //Export the point light data type
